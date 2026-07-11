@@ -11,7 +11,6 @@ async function requestJson(url, options = {}) {
     networkError.cause = error;
     throw networkError;
   }
-
   const data = await res.text();
   let parsed;
   try {
@@ -40,3 +39,4 @@ export async function sendMessageREST({ username, text }) {
 }
 
 export { API_URL };
+
