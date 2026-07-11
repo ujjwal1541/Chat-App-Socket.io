@@ -14,7 +14,7 @@ export function useChat(username) {
     let cancelled = false;
     fetchMessages()
       .then((msgs) => !cancelled && setMessages(msgs))
-      .catch((e) => !cancelled && setError(e.message));
+      .catch((e) => !cancelled && setError(e.message || 'Failed to load messages'));
     return () => { cancelled = true; };
   }, []);
 
@@ -35,7 +35,7 @@ export function useChat(username) {
         return Array.from(set);
       });
     };
-    const onError = (err) => setError(err?.message || 'Socket error');
+    const onError = (err) => setError(err?.message || 'Socket connection error');
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
