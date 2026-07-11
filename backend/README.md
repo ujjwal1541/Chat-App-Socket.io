@@ -2,4 +2,4 @@
 
 - Render uses the `npm start` script defined in package.json.
 - Set `MONGO_URI` to your MongoDB connection string.
-- Set `CLIENT_ORIGIN` to your Vercel frontend URL so CORS and Socket.IO accept it.
+- Set `CLIENT_ORIGINS` to a comma-separated list such as `https://chat-app-socket-io-opal.vercel.app,http://localhost:5173` so CORS and Socket.IO accept both your deployed frontend and local dev app.

@@ -14,7 +14,14 @@ export function useChat(username) {
     let cancelled = false;
     fetchMessages()
       .then((msgs) => !cancelled && setMessages(msgs))
-      .catch((e) => !cancelled && setError(e.message));
+      .catch((e) => {
+        if (cancelled) return;
+        if (e?.code === 'NETWORK_ERROR') {
+          console.warn('Skipping chat history load because the API is unreachable from the browser.', e);
+          return;
+        }
+        setError(e.message || 'Failed to load messages');
+      });
     return () => { cancelled = true; };
   }, []);
 
@@ -35,7 +42,7 @@ export function useChat(username) {
         return Array.from(set);
       });
     };
-    const onError = (err) => setError(err?.message || 'Socket error');
+    const onError = (err) => setError(err?.message || 'Socket connection error');
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);

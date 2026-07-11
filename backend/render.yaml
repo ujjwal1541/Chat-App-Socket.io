@@ -15,5 +15,5 @@ services:
         fromDatabase:
           name: chatapp-db
           property: connectionString
-      - key: CLIENT_ORIGIN
-        value: https://your-frontend-app.vercel.app
+      - key: CLIENT_ORIGINS
+        value: https://chat-app-socket-io-opal.vercel.app,http://localhost:5173
